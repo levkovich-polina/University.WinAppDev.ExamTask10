@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.DataGridView = new System.Windows.Forms.DataGridView();
-            this.StartFillingButton = new System.Windows.Forms.Button();
-            this.SaveButton = new System.Windows.Forms.Button();
-            this.DownloadButton = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StartFillingButton = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.DownloadButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,34 +53,6 @@
             this.DataGridView.RowTemplate.Height = 29;
             this.DataGridView.Size = new System.Drawing.Size(541, 399);
             this.DataGridView.TabIndex = 0;
-            // 
-            // StartFillingButton
-            // 
-            this.StartFillingButton.Location = new System.Drawing.Point(580, 21);
-            this.StartFillingButton.Name = "StartFillingButton";
-            this.StartFillingButton.Size = new System.Drawing.Size(181, 67);
-            this.StartFillingButton.TabIndex = 1;
-            this.StartFillingButton.Text = "Начать заполнение";
-            this.StartFillingButton.UseVisualStyleBackColor = true;
-            this.StartFillingButton.Click += new System.EventHandler(this.StartFillingButton_Click);
-            // 
-            // SaveButton
-            // 
-            this.SaveButton.Location = new System.Drawing.Point(580, 308);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(181, 41);
-            this.SaveButton.TabIndex = 2;
-            this.SaveButton.Text = "Сохранить";
-            this.SaveButton.UseVisualStyleBackColor = true;
-            // 
-            // DownloadButton
-            // 
-            this.DownloadButton.Location = new System.Drawing.Point(580, 368);
-            this.DownloadButton.Name = "DownloadButton";
-            this.DownloadButton.Size = new System.Drawing.Size(178, 41);
-            this.DownloadButton.TabIndex = 3;
-            this.DownloadButton.Text = "Загрузить";
-            this.DownloadButton.UseVisualStyleBackColor = true;
             // 
             // Column1
             // 
@@ -113,6 +85,35 @@
             this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
             this.Column4.Width = 125;
+            // 
+            // StartFillingButton
+            // 
+            this.StartFillingButton.Location = new System.Drawing.Point(580, 21);
+            this.StartFillingButton.Name = "StartFillingButton";
+            this.StartFillingButton.Size = new System.Drawing.Size(181, 67);
+            this.StartFillingButton.TabIndex = 1;
+            this.StartFillingButton.Text = "Начать заполнение";
+            this.StartFillingButton.UseVisualStyleBackColor = true;
+            this.StartFillingButton.Click += new System.EventHandler(this.StartFillingButton_Click);
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Location = new System.Drawing.Point(580, 308);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(181, 41);
+            this.SaveButton.TabIndex = 2;
+            this.SaveButton.Text = "Сохранить";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // DownloadButton
+            // 
+            this.DownloadButton.Location = new System.Drawing.Point(580, 368);
+            this.DownloadButton.Name = "DownloadButton";
+            this.DownloadButton.Size = new System.Drawing.Size(178, 41);
+            this.DownloadButton.TabIndex = 3;
+            this.DownloadButton.Text = "Загрузить";
+            this.DownloadButton.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

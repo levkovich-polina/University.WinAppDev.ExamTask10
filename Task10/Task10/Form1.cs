@@ -35,7 +35,7 @@ namespace Task10
             TimerCallback tm = new TimerCallback(OnTimerTicked);
             _timer = new Timer(tm, 0, 0, 500);
         }
-
+        string _translatToString;
         private void OnTimerTicked(object obj)
         {
             try
@@ -64,17 +64,42 @@ namespace Task10
                 {
                     type = BloodType.AB;
                 }
-             
+
                 Invoke(() =>
                 {
                     _persons.Add(new Person { Name = name, Height = height, Age = age, BloodType = type });
+
                 });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                
-            }
 
+            }
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            _timer.Dispose();
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "CSV Files (*.csv)|*.csv";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter writer = new StreamWriter(sfd.FileName))
+                {
+                    for (int i = 0; i < _persons.Count; i++)
+                    {
+                        writer.Write(_persons[i].Name);
+                        writer.Write(";");
+                        writer.Write(_persons[i].Age);
+                        writer.Write(";");
+                        writer.Write(_persons[i].Height);
+                        writer.Write(";");
+                        writer.Write(_persons[i].BloodType);
+                        writer.WriteLine();
+                    }
+                }
+            }
         }
     }
 }
