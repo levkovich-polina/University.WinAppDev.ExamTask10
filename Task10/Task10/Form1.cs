@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Timer = System.Threading.Timer;
 
 namespace Task10
@@ -9,7 +10,7 @@ namespace Task10
             public string Name { get; set; }
             public int Height { get; set; }
             public int Age { get; set; }
-            public BloodType Type { get; set; }
+            public BloodType BloodType { get; set; }
         }
         private enum BloodType
         {
@@ -19,18 +20,14 @@ namespace Task10
         }
 
         Timer _timer;
-        string _name;
-        int _height;
-        int _age;
-        BloodType _bloodType;
+        Random _random = new Random();
+        private BindingList<Person> _persons = new BindingList<Person>();
+
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            DataGridView.AutoGenerateColumns = true;
+            DataGridView.DataSource = _persons;
         }
 
         private void StartFillingButton_Click(object sender, EventArgs e)
@@ -38,32 +35,46 @@ namespace Task10
             TimerCallback tm = new TimerCallback(OnTimerTicked);
             _timer = new Timer(tm, 0, 0, 500);
         }
+
         private void OnTimerTicked(object obj)
         {
-            Random rnd = new Random();
-            int length = rnd.Next(0, 11);
-            Char[] letters = new Char[12] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l' };
-            for (int i = 0; i < length; i++)
+            try
             {
-                _name += letters[rnd.Next(0, 11)];
+                string name = "";
+                int length = _random.Next(3, 11);
+                Char[] letters = new Char[12] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l' };
+                for (int i = 0; i < length; i++)
+                {
+                    name += letters[_random.Next(0, 12)];
+                }
+                int height = _random.Next(120, 190);
+
+                int age = _random.Next(5, 80);
+                BloodType type;
+                int bloodType = _random.Next(0, 3);
+                if (bloodType == 0)
+                {
+                    type = BloodType.A;
+                }
+                else if (bloodType == 1)
+                {
+                    type = BloodType.B;
+                }
+                else
+                {
+                    type = BloodType.AB;
+                }
+             
+                Invoke(() =>
+                {
+                    _persons.Add(new Person { Name = name, Height = height, Age = age, BloodType = type });
+                });
             }
-            int height = rnd.Next(120, 190);
-            _height = height;
-            int age = rnd.Next(5, 80);
-            _age = age;
-            int bloodType = rnd.Next(0, 2);
-            if(bloodType == 0)
+            catch(Exception e)
             {
-                _bloodType = BloodType.A;
+                
             }
-            else if (bloodType == 1)
-            {
-                _bloodType = BloodType.B;
-            }
-            else
-            {
-                _bloodType = BloodType.AB;
-            }
+
         }
     }
 }
