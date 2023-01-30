@@ -22,64 +22,63 @@ namespace Task10
         Timer _timer;
         Random _random = new Random();
         private BindingList<Person> _persons = new BindingList<Person>();
-        string _translatToString;
 
         public Form1()
         {
             InitializeComponent();
             DataGridView.AutoGenerateColumns = true;
             DataGridView.DataSource = _persons;
-        }
 
+        }
         private void StartFillingButton_Click(object sender, EventArgs e)
         {
             TimerCallback tm = new TimerCallback(OnTimerTicked);
             _timer = new Timer(tm, 0, 0, 500);
+            DownloadButton.Enabled = false;
         }
         private void OnTimerTicked(object obj)
         {
-            try
+
+
+            string name = "";
+            int length = _random.Next(3, 11);
+            Char[] letters = new Char[12] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l' };
+            for (int i = 0; i < length; i++)
             {
-                string name = "";
-                int length = _random.Next(3, 11);
-                Char[] letters = new Char[12] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l' };
-                for (int i = 0; i < length; i++)
-                {
-                    name += letters[_random.Next(0, 12)];
-                }
-                int height = _random.Next(120, 190);
-
-                int age = _random.Next(5, 80);
-                BloodType type;
-                int bloodType = _random.Next(0, 3);
-                if (bloodType == 0)
-                {
-                    type = BloodType.A;
-                }
-                else if (bloodType == 1)
-                {
-                    type = BloodType.B;
-                }
-                else
-                {
-                    type = BloodType.AB;
-                }
-
-                Invoke(() =>
-                {
-                    _persons.Add(new Person { Name = name, Height = height, Age = age, BloodType = type });
-
-                });
+                name += letters[_random.Next(0, 12)];
             }
-            catch (Exception e)
+            int height = _random.Next(120, 190);
+
+            int age = _random.Next(5, 80);
+            BloodType type;
+            int bloodType = _random.Next(0, 3);
+            if (bloodType == 0)
             {
-
+                type = BloodType.A;
             }
+            else if (bloodType == 1)
+            {
+                type = BloodType.B;
+            }
+            else
+            {
+                type = BloodType.AB;
+            }
+
+            Invoke(() =>
+            {
+                _persons.Add(new Person { Name = name, Height = height, Age = age, BloodType = type });
+
+            });
+
+
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            if (DataGridView.Rows.Count > 1 && DataGridView.Rows != null)
+            DownloadButton.Enabled = true;
+
+            if (_persons != null)
             {
                 _timer.Dispose();
                 SaveFileDialog sfd = new SaveFileDialog();
@@ -126,7 +125,13 @@ namespace Task10
                     {
                         Invoke(() =>
                         {
-                            _persons.Add(new Person { Name = personInfos[j], Height = Convert.ToInt16(personInfos[j + 1]), Age = Convert.ToInt16(personInfos[j + 2]), BloodType = (BloodType)Enum.Parse(typeof(BloodType), (personInfos[j + 3])) });
+                            _persons.Add(new Person
+                            { 
+                                Name = personInfos[j], 
+                                Height = Convert.ToInt16(personInfos[j + 1]), 
+                                Age = Convert.ToInt16(personInfos[j + 2]), 
+                                BloodType = (BloodType)Enum.Parse(typeof(BloodType), (personInfos[j + 3]))
+                            });
                         });
                     }
                 }
