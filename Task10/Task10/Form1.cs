@@ -22,6 +22,7 @@ namespace Task10
         Timer _timer;
         Random _random = new Random();
         private BindingList<Person> _persons = new BindingList<Person>();
+        string _translatToString;
 
         public Form1()
         {
@@ -35,7 +36,6 @@ namespace Task10
             TimerCallback tm = new TimerCallback(OnTimerTicked);
             _timer = new Timer(tm, 0, 0, 500);
         }
-        string _translatToString;
         private void OnTimerTicked(object obj)
         {
             try
@@ -79,26 +79,58 @@ namespace Task10
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            _timer.Dispose();
-
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "CSV Files (*.csv)|*.csv";
-            if (sfd.ShowDialog() == DialogResult.OK)
+            if (DataGridView.Rows.Count > 1 && DataGridView.Rows != null)
             {
-                using (StreamWriter writer = new StreamWriter(sfd.FileName))
+                _timer.Dispose();
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "CSV Files (*.csv)|*.csv";
+                if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    for (int i = 0; i < _persons.Count; i++)
+                    using (StreamWriter writer = new StreamWriter(sfd.FileName))
                     {
-                        writer.Write(_persons[i].Name);
-                        writer.Write(";");
-                        writer.Write(_persons[i].Age);
-                        writer.Write(";");
-                        writer.Write(_persons[i].Height);
-                        writer.Write(";");
-                        writer.Write(_persons[i].BloodType);
-                        writer.WriteLine();
+                        for (int i = 0; i < _persons.Count; i++)
+                        {
+                            writer.Write(_persons[i].Name);
+                            writer.Write(";");
+                            writer.Write(_persons[i].Age);
+                            writer.Write(";");
+                            writer.Write(_persons[i].Height);
+                            writer.Write(";");
+                            writer.Write(_persons[i].BloodType);
+                            writer.WriteLine();
+                        }
                     }
                 }
+                DataGridView.Rows.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Таблица должна быть заполнена!");
+            }
+
+        }
+        private void DownloadButton_Click(object sender, EventArgs e)
+        {
+            string file;
+            String str = "";
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV Files (*.csv)|*.csv";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                file = openFileDialog.FileName;
+                string[] lines = File.ReadAllLines(file);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string[] personInfos = lines[i].Split(";");
+                    for (int j = 0; j < 1; j++)
+                    {
+                        Invoke(() =>
+                        {
+                            _persons.Add(new Person { Name = personInfos[j], Height = Convert.ToInt16(personInfos[j + 1]), Age = Convert.ToInt16(personInfos[j + 2]), BloodType = (BloodType)Enum.Parse(typeof(BloodType), (personInfos[j + 3])) });
+                        });
+                    }
+                }
+
             }
         }
     }

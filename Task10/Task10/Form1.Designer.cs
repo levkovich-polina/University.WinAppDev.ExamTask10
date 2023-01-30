@@ -114,6 +114,7 @@
             this.DownloadButton.TabIndex = 3;
             this.DownloadButton.Text = "Загрузить";
             this.DownloadButton.UseVisualStyleBackColor = true;
+            this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
             // 
             // Form1
             // 
