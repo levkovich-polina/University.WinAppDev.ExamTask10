@@ -32,14 +32,13 @@ namespace Task10
         }
         private void StartFillingButton_Click(object sender, EventArgs e)
         {
+            _persons.Clear();
             TimerCallback tm = new TimerCallback(OnTimerTicked);
             _timer = new Timer(tm, 0, 0, 500);
             DownloadButton.Enabled = false;
         }
         private void OnTimerTicked(object obj)
         {
-
-
             string name = "";
             int length = _random.Next(3, 11);
             Char[] letters = new Char[12] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l' };
@@ -100,7 +99,7 @@ namespace Task10
                         }
                     }
                 }
-                DataGridView.Rows.Clear();
+                _persons.Clear();
             }
             else
             {
